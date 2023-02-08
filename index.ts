@@ -1,4 +1,4 @@
-import * as express from "express"
+import express from "express"
 import { Socket } from "net"
 
 const app = express()
@@ -17,7 +17,7 @@ app.get("/connectiontest", (req, res) => {
             resolve(false)
         })
 
-        client.on("timeout", (err) => {
+        client.on("timeout", () => {
             client.destroy()
             resolve(false)
         })
@@ -27,8 +27,6 @@ app.get("/connectiontest", (req, res) => {
             resolve(true)
         })
     }).then(result => {
-        console.log(result)
-
         if (result) {
             res.status(200).send();
         } else {
